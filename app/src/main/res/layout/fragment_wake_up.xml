@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.jcr.sleepcycle.fragments.wake_up.WakeUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.wake_up.WakeUpFragment">
+
+        <EditText
+            android:id="@+id/hourTextEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="272dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/hour"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.inputHour}"
+            app:layout_constraintBottom_toTopOf="@+id/hours_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32999998" />
+
+        <Button
+            android:id="@+id/wakeUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/when_should_i_go_to_bed"
+            android:visibility="@{viewModel.isEditing? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hourTextEdit" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hours_recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.643" />
+
+        <Button
+            android:id="@+id/deleteAllButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> viewModel.clearAll()}"
+            android:text="@string/delete_all"
+            app:layout_constraintBottom_toTopOf="@+id/hours_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/addToFavButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.saveHour()}"
+            android:text="@string/plus"
+            android:visibility="@{viewModel.isEditing? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/wakeUpButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toEndOf="@+id/hourTextEdit"
+            app:layout_constraintTop_toTopOf="@+id/hourTextEdit"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/commitEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/edit"
+            android:visibility="@{viewModel.isEditing? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wakeUpButton" />
+
+        <Button
+            android:id="@+id/cancelEditButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:onClick="@{() -> viewModel.finishEdit()}"
+            android:text="@android:string/cancel"
+            android:visibility="@{viewModel.isEditing? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.275"
+            app:layout_constraintStart_toEndOf="@+id/commitEditButton"
+            app:layout_constraintTop_toBottomOf="@+id/wakeUpButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
